@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>NÓMADA+</title>
+<meta name="theme-color" content="#f7f2eb"><meta name="apple-mobile-web-app-capable" content="yes"><title>NÓMADA+ · Biblioteca personal</title>
 <style>
 :root{--cream:#f7f2eb;--paper:#fffaf6;--wine:#563647;--coral:#d77b69;--rose:#d8a3a8;--lilac:#aa8ba5;--ink:#30272c;--mut:#786e73;--line:#e5d9d2}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -29,7 +29,28 @@ main{padding:7px 12px 86px}.section{margin:24px 0 32px}.head{display:flex;justif
 </style></head>
 <body>
 <header><div class="brand">NÓMADA<b>+</b></div><input id="q" class="search" placeholder="Buscar..." onkeyup="searchNow()"></header>
-<div id="view"></div>
+<div id="view">
+<div class="hero"><div class="heroCard"><div class="heroCopy">
+<div class="eye">Biblioteca personal · Nómada TV</div>
+<h1>Viaja por el archivo.</h1>
+<p>Una capa más limpia para descubrir y organizar Nómada TV. La suscripción, el inicio de sesión y la reproducción siguen en la plataforma original.</p>
+<button class="btn primary" onclick="openS('armenia')">Ver destacado</button>
+<button class="btn secondary" onclick="explore()">Explorar todo</button>
+</div></div></div>
+<main>
+<section class="section"><div class="head"><h2>Para empezar</h2><span class="meta">Destacados</span></div>
+<div class="rail">
+<article class="card" onclick="openS('armenia')"><div class="poster"><span class="monogram">AR</span><b class="tag">Cáucaso</b></div><h3>De Armenia a Rumania con La Gorda</h3><div class="meta">2026 · 2 episodios</div></article>
+<article class="card" onclick="openS('irak')"><div class="poster"><span class="monogram">OB</span><b class="tag">Irak</b></div><h3>Operación Babilonia</h3><div class="meta">2025</div></article>
+<article class="card" onclick="openS('diario')"><div class="poster"><span class="monogram">DN</span><b class="tag">Mundo</b></div><h3>Diario de un Nómada</h3><div class="meta">12 temporadas</div></article>
+</div></section>
+<section class="section"><div class="head"><h2>Grandes viajes</h2><span class="meta">Explorar</span></div>
+<div class="rail">
+<article class="card" onclick="openS('asia')"><div class="poster"><span class="monogram">AC</span><b class="tag">Asia Central</b></div><h3>Moto Nómada en Asia Central</h3><div class="meta">2019</div></article>
+<article class="card" onclick="openS('mongolia')"><div class="poster"><span class="monogram">MO</span><b class="tag">Mongolia</b></div><h3>Miquel Silvestre en Mongolia</h3><div class="meta">2019</div></article>
+<article class="card" onclick="openS('cabo')"><div class="poster"><span class="monogram">CN</span><b class="tag">Escandinavia</b></div><h3>Ruta Cabo Norte</h3><div class="meta">2010–2018</div></article>
+</div></section>
+</main></div>
 <div class="bottom"><button onclick="home()">Inicio</button><button onclick="explore()">Explorar</button><button onclick="mine()">Mi lista</button></div>
 <div id="modal" class="modal" onclick="backdrop(event)"><div id="sheet" class="sheet"></div></div>
 <script>
@@ -54,14 +75,14 @@ var C=[
 var E={"armenia":[["Recuperamos a La Gorda en Armenia","31:40"],["Registro en frontera Armenia","26:21"]],"diario":[["La conquista de los Andes","25:12"],["El martirio de Pedro de Valdivia","25:53"],["En busca del fin del mundo I","26:10"],["En busca del fin del mundo II","26:53"]]};
 function getFav(){try{return JSON.parse(localStorage.getItem("nomada_fixed")||"[]")}catch(e){return []}}
 function initials(t){var a=t.split(" "),r="",i;for(i=0;i<a.length&&r.length<2;i++){if(a[i].length>2)r+=a[i].charAt(0)}return r.toUpperCase()}
-function card(x){return '<article class="card" onclick="openS(\\''+x[0]+'\\')"><div class="poster"><span class="monogram">'+initials(x[1])+'</span><b class="tag">'+x[3]+'</b></div><h3>'+x[1]+'</h3><div class="meta">'+x[2]+'</div></article>'}
+function card(x){return '<article class="card" onclick="openS(\''+x[0]+'\')"><div class="poster"><span class="monogram">'+initials(x[1])+'</span><b class="tag">'+x[3]+'</b></div><h3>'+x[1]+'</h3><div class="meta">'+x[2]+'</div></article>'}
 function rail(t,a){var s='<section class="section"><div class="head"><h2>'+t+'</h2><span class="meta">'+a.length+'</span></div><div class="rail">',i;for(i=0;i<a.length;i++)s+=card(a[i]);return s+'</div></section>'}
-function home(){document.getElementById("q").value="";document.getElementById("view").innerHTML='<div class="hero"><div class="heroCard"><div class="heroCopy"><div class="eye">Tu biblioteca personal</div><h1>Viaja por el archivo.</h1><p>Una capa más limpia para descubrir Nómada TV. Los vídeos y tu suscripción siguen en la plataforma original.</p><button class="btn primary" onclick="openS(\\'armenia\\')">Ver destacado</button><button class="btn secondary" onclick="explore()">Explorar todo</button></div></div></div><main>'+rail("Para empezar",C.slice(0,6))+rail("Grandes viajes",C.slice(6,13))+rail("Archivo",C.slice(13))+'</main>'}
+function home(){document.getElementById("q").value="";document.getElementById("view").innerHTML='<div class="hero"><div class="heroCard"><div class="heroCopy"><div class="eye">Tu biblioteca personal</div><h1>Viaja por el archivo.</h1><p>Una capa más limpia para descubrir Nómada TV. Los vídeos y tu suscripción siguen en la plataforma original.</p><button class="btn primary" onclick="openS(\'armenia\')">Ver destacado</button><button class="btn secondary" onclick="explore()">Explorar todo</button></div></div></div><main>'+rail("Para empezar",C.slice(0,6))+rail("Grandes viajes",C.slice(6,13))+rail("Archivo",C.slice(13))+'</main>'}
 function explore(a,t){if(!a)a=C;if(!t)t="Explorar";var s='<main class="library"><div class="head"><h2>'+t+'</h2><span class="meta">'+a.length+' colecciones</span></div><div class="grid">',i;for(i=0;i<a.length;i++)s+=card(a[i]);document.getElementById("view").innerHTML=s+'</div></main>'}
 function searchNow(){var s=document.getElementById("q").value.toLowerCase(),a=[],i,j,txt;if(!s){home();return}for(i=0;i<C.length;i++){txt=C[i].join(" ")+" ";if(E[C[i][0]])for(j=0;j<E[C[i][0]].length;j++)txt+=E[C[i][0]][j].join(" ")+" ";if(txt.toLowerCase().indexOf(s)>=0)a.push(C[i])}explore(a,"Resultados")}
 function toggle(id){var a=getFav(),i=a.indexOf(id);if(i>=0)a.splice(i,1);else a.push(id);try{localStorage.setItem("nomada_fixed",JSON.stringify(a))}catch(e){}}
 function mine(){var f=getFav(),a=[],i;if(!f.length){explore([],"Mi lista");return}for(i=0;i<C.length;i++)if(f.indexOf(C[i][0])>=0)a.push(C[i]);explore(a,"Mi lista")}
-function openS(id){var x=null,i,eps,yes,s;for(i=0;i<C.length;i++)if(C[i][0]===id)x=C[i];if(!x)return;eps=E[id]||[];yes=getFav().indexOf(id)>=0;s='<button class="close" onclick="document.getElementById(\\'modal\\').className=\\'modal\\'">×</button><div class="eye">'+x[3]+' · '+x[2]+'</div><h2>'+x[1]+'</h2><button class="btn primary" onclick="window.location.href=\\''+x[4]+'\\'">Abrir en Nómada TV ↗</button><button class="btn secondary" onclick="toggle(\\''+id+'\\');openS(\\''+id+'\\')">'+(yes?"✓ En mi lista":"＋ Mi lista")+'</button>';for(i=0;i<eps.length;i++)s+='<div class="ep"><b>'+(i+1)+'</b><span>'+eps[i][0]+'</span><span class="meta">'+eps[i][1]+'</span></div>';document.getElementById("sheet").innerHTML=s;document.getElementById("modal").className="modal on"}
+function openS(id){var x=null,i,eps,yes,s;for(i=0;i<C.length;i++)if(C[i][0]===id)x=C[i];if(!x)return;eps=E[id]||[];yes=getFav().indexOf(id)>=0;s='<button class="close" onclick="document.getElementById(\'modal\').className=\'modal\'">×</button><div class="eye">'+x[3]+' · '+x[2]+'</div><h2>'+x[1]+'</h2><button class="btn primary" onclick="window.location.href=\''+x[4]+'\'">Abrir en Nómada TV ↗</button><button class="btn secondary" onclick="toggle(\''+id+'\');openS(\''+id+'\')">'+(yes?"✓ En mi lista":"＋ Mi lista")+'</button>';for(i=0;i<eps.length;i++)s+='<div class="ep"><b>'+(i+1)+'</b><span>'+eps[i][0]+'</span><span class="meta">'+eps[i][1]+'</span></div>';document.getElementById("sheet").innerHTML=s;document.getElementById("modal").className="modal on"}
 function backdrop(e){if(e.target.id==="modal")e.target.className="modal"}
 home();
-</script></body></html>
+</script><!-- NÓMADA+ definitive v1 · 2026-09-17 --></body></html>
