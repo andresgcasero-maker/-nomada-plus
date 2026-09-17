@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NÓMADA+</title>
+<style>
+:root{--cream:#f7f2eb;--paper:#fffaf6;--wine:#563647;--coral:#d77b69;--rose:#d8a3a8;--lilac:#aa8ba5;--ink:#30272c;--mut:#786e73;--line:#e5d9d2}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}header{height:62px;position:sticky;top:0;z-index:20;display:flex;align-items:center;padding:0 15px;gap:14px;background:rgba(247,242,235,.96);border-bottom:1px solid #fff}
+.brand{font-size:13px;font-weight:900;letter-spacing:.14em;color:var(--wine);white-space:nowrap}.brand b{color:var(--coral)}
+.search{margin-left:auto;width:min(330px,58vw);border:1px solid var(--line);background:var(--paper);padding:9px 13px;border-radius:999px;color:var(--ink)}
+.hero{padding:12px 12px 6px}.heroCard{min-height:430px;border-radius:24px;position:relative;overflow:hidden;background:linear-gradient(145deg,#d8a3a8,#aa8ba5)}
+.heroCard:before{content:"";position:absolute;width:330px;height:330px;border:58px solid rgba(255,255,255,.15);border-radius:50%;right:-150px;top:-80px}
+.heroCard:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(86,54,71,.95) 0%,rgba(86,54,71,.45) 55%,transparent 84%)}
+.heroCopy{position:absolute;z-index:2;left:22px;right:22px;bottom:25px;color:white}.eye{font-size:10px;font-weight:900;letter-spacing:.17em;text-transform:uppercase}
+h1{font-size:46px;line-height:.93;letter-spacing:-.055em;margin:10px 0 14px}.hero p{font-size:14px;line-height:1.5;margin:0 0 8px;color:#fff8f2}
+.btn{border:0;border-radius:999px;padding:11px 15px;font-weight:800;margin:6px 5px 0 0}.primary{background:var(--paper);color:var(--wine)}.secondary{background:rgba(255,255,255,.2);color:white}
+main{padding:7px 12px 86px}.section{margin:24px 0 32px}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px}.head h2{font-size:20px;color:var(--wine);margin:0}.meta{font-size:11px;color:var(--mut)}
+.rail{display:flex;gap:11px;overflow-x:auto;padding:1px 1px 12px;-webkit-overflow-scrolling:touch}.card{flex:0 0 76vw;max-width:320px;cursor:pointer}
+.poster{aspect-ratio:16/9;border-radius:18px;position:relative;overflow:hidden;background:linear-gradient(145deg,#ead7d7,#d8a3a8)}
+.card:nth-child(3n+2) .poster{background:linear-gradient(145deg,#e4d8e3,#aa8ba5)}.card:nth-child(3n+3) .poster{background:linear-gradient(145deg,#f1d8ce,#d77b69)}
+.poster:before{content:"";position:absolute;width:150px;height:150px;border:32px solid rgba(255,255,255,.22);border-radius:50%;right:-45px;top:-45px}
+.poster .monogram{position:absolute;left:16px;top:14px;color:rgba(86,54,71,.55);font-weight:900;font-size:34px;letter-spacing:-.06em}.tag{position:absolute;left:13px;bottom:12px;background:rgba(255,250,246,.88);color:var(--wine);padding:6px 9px;border-radius:999px;font-size:9px;font-weight:850}
+.card h3{font-size:14px;margin:9px 2px 3px;line-height:1.25}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 9px}.grid .card{max-width:none;width:auto}.grid .poster{aspect-ratio:1.25/1}.grid .card h3{font-size:12px}
+.library{padding-top:18px}.chips{display:flex;gap:7px;overflow-x:auto;margin-bottom:18px}.chip{border:1px solid var(--line);background:var(--paper);color:var(--wine);padding:8px 11px;border-radius:999px;white-space:nowrap}
+.modal{display:none;position:fixed;z-index:50;inset:0;background:rgba(58,39,50,.45);align-items:end;justify-content:center}.modal.on{display:flex}.sheet{width:100%;max-height:88vh;overflow:auto;background:var(--cream);border-radius:25px 25px 0 0;padding:20px}.close{float:right;border:0;background:var(--paper);color:var(--wine);border-radius:50%;width:39px;height:39px}.sheet h2{font-size:28px;color:var(--wine);margin:8px 0}.sheet .secondary{background:var(--rose);color:var(--wine)}.ep{display:grid;grid-template-columns:30px 1fr auto;gap:8px;padding:13px 0;border-top:1px solid var(--line);align-items:center}
+.bottom{display:flex;position:fixed;z-index:25;inset:auto 0 0;justify-content:space-around;background:rgba(247,242,235,.96);border-top:1px solid var(--line);padding:10px 3px max(12px,env(safe-area-inset-bottom));backdrop-filter:blur(18px)}.bottom button{border:0;background:0;color:var(--wine);font-size:11px}
+@media(min-width:721px){header{padding:0 4vw}.hero{padding:24px 4vw 8px}.heroCard{min-height:460px}.heroCopy{left:42px;bottom:42px;max-width:600px}main{padding:10px 4vw 90px}.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,21vw)}.card{max-width:none}.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.grid .poster{aspect-ratio:16/10}.bottom{display:none}}
+</style></head>
+<body>
+<header><div class="brand">NÓMADA<b>+</b></div><input id="q" class="search" placeholder="Buscar..." onkeyup="searchNow()"></header>
+<div id="view"></div>
+<div class="bottom"><button onclick="home()">Inicio</button><button onclick="explore()">Explorar</button><button onclick="mine()">Mi lista</button></div>
+<div id="modal" class="modal" onclick="backdrop(event)"><div id="sheet" class="sheet"></div></div>
+<script>
+var C=[
+["armenia","De Armenia a Rumania con La Gorda","2026","Cáucaso","https://www.nomadatv.es/de-armenia-a-rumania-con-la-gorda"],
+["irak","Operación Babilonia","2025","Irak","https://www.nomadatv.es/series"],
+["alpes","Las 4 estaciones en los Alpes","2024–2026","Alpes","https://www.nomadatv.es/series"],
+["alejandro","Ruta de Alejandro Magno","2024","Mediterráneo","https://www.nomadatv.es/series"],
+["tropico","Trópico Polar Expedición","2023","Europa · África","https://www.nomadatv.es/series"],
+["espana","Miquel Silvestre por España","2018–2022","España","https://www.nomadatv.es/series"],
+["asia","Moto Nómada en Asia Central","2019","Asia Central","https://www.nomadatv.es/series"],
+["mongolia","Miquel Silvestre en Mongolia","2019","Mongolia","https://www.nomadatv.es/series"],
+["marruecos","Miquel Silvestre por Marruecos","2019","Marruecos","https://www.nomadatv.es/series"],
+["samarkanda","Ruta Embajada Samarkanda","2013","Uzbekistán","https://www.nomadatv.es/series"],
+["moton","MotoNómadas","2013–2018","Mundo","https://www.nomadatv.es/motonomadas"],
+["world","La vuelta al mundo en moto","2011–2012","Mundo","https://www.nomadatv.es/series"],
+["cabo","Ruta Cabo Norte","2010–2018","Escandinavia","https://www.nomadatv.es/series"],
+["gorda","Construyendo La Gorda","2020","Motor","https://www.nomadatv.es/series"],
+["diario","Diario de un Nómada","2014–2019","Mundo","https://www.nomadatv.es/diario-de-un-nomada-1/season%3A1"],
+["trajano","Expedición Trajano","2022","Europa","https://www.nomadatv.es/series"]
+];
+var E={"armenia":[["Recuperamos a La Gorda en Armenia","31:40"],["Registro en frontera Armenia","26:21"]],"diario":[["La conquista de los Andes","25:12"],["El martirio de Pedro de Valdivia","25:53"],["En busca del fin del mundo I","26:10"],["En busca del fin del mundo II","26:53"]]};
+function getFav(){try{return JSON.parse(localStorage.getItem("nomada_fixed")||"[]")}catch(e){return []}}
+function initials(t){var a=t.split(" "),r="",i;for(i=0;i<a.length&&r.length<2;i++){if(a[i].length>2)r+=a[i].charAt(0)}return r.toUpperCase()}
+function card(x){return '<article class="card" onclick="openS(\\''+x[0]+'\\')"><div class="poster"><span class="monogram">'+initials(x[1])+'</span><b class="tag">'+x[3]+'</b></div><h3>'+x[1]+'</h3><div class="meta">'+x[2]+'</div></article>'}
+function rail(t,a){var s='<section class="section"><div class="head"><h2>'+t+'</h2><span class="meta">'+a.length+'</span></div><div class="rail">',i;for(i=0;i<a.length;i++)s+=card(a[i]);return s+'</div></section>'}
+function home(){document.getElementById("q").value="";document.getElementById("view").innerHTML='<div class="hero"><div class="heroCard"><div class="heroCopy"><div class="eye">Tu biblioteca personal</div><h1>Viaja por el archivo.</h1><p>Una capa más limpia para descubrir Nómada TV. Los vídeos y tu suscripción siguen en la plataforma original.</p><button class="btn primary" onclick="openS(\\'armenia\\')">Ver destacado</button><button class="btn secondary" onclick="explore()">Explorar todo</button></div></div></div><main>'+rail("Para empezar",C.slice(0,6))+rail("Grandes viajes",C.slice(6,13))+rail("Archivo",C.slice(13))+'</main>'}
+function explore(a,t){if(!a)a=C;if(!t)t="Explorar";var s='<main class="library"><div class="head"><h2>'+t+'</h2><span class="meta">'+a.length+' colecciones</span></div><div class="grid">',i;for(i=0;i<a.length;i++)s+=card(a[i]);document.getElementById("view").innerHTML=s+'</div></main>'}
+function searchNow(){var s=document.getElementById("q").value.toLowerCase(),a=[],i,j,txt;if(!s){home();return}for(i=0;i<C.length;i++){txt=C[i].join(" ")+" ";if(E[C[i][0]])for(j=0;j<E[C[i][0]].length;j++)txt+=E[C[i][0]][j].join(" ")+" ";if(txt.toLowerCase().indexOf(s)>=0)a.push(C[i])}explore(a,"Resultados")}
+function toggle(id){var a=getFav(),i=a.indexOf(id);if(i>=0)a.splice(i,1);else a.push(id);try{localStorage.setItem("nomada_fixed",JSON.stringify(a))}catch(e){}}
+function mine(){var f=getFav(),a=[],i;if(!f.length){explore([],"Mi lista");return}for(i=0;i<C.length;i++)if(f.indexOf(C[i][0])>=0)a.push(C[i]);explore(a,"Mi lista")}
+function openS(id){var x=null,i,eps,yes,s;for(i=0;i<C.length;i++)if(C[i][0]===id)x=C[i];if(!x)return;eps=E[id]||[];yes=getFav().indexOf(id)>=0;s='<button class="close" onclick="document.getElementById(\\'modal\\').className=\\'modal\\'">×</button><div class="eye">'+x[3]+' · '+x[2]+'</div><h2>'+x[1]+'</h2><button class="btn primary" onclick="window.location.href=\\''+x[4]+'\\'">Abrir en Nómada TV ↗</button><button class="btn secondary" onclick="toggle(\\''+id+'\\');openS(\\''+id+'\\')">'+(yes?"✓ En mi lista":"＋ Mi lista")+'</button>';for(i=0;i<eps.length;i++)s+='<div class="ep"><b>'+(i+1)+'</b><span>'+eps[i][0]+'</span><span class="meta">'+eps[i][1]+'</span></div>';document.getElementById("sheet").innerHTML=s;document.getElementById("modal").className="modal on"}
+function backdrop(e){if(e.target.id==="modal")e.target.className="modal"}
+home();
+</script></body></html>
